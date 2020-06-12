@@ -23,10 +23,17 @@
             style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:text="Exkost"
+            android:text="Exkost Admin"
             android:textColor="@android:color/white"
             android:id="@+id/namaAkun"/>
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="exkost.decode@gmail.com"
+            android:textColor="@android:color/white"/>
 
     </LinearLayout>
 

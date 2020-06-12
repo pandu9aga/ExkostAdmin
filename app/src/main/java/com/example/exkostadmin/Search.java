@@ -206,7 +206,7 @@ public class Search extends AppCompatActivity{
     }
 
     public void goTo(View v) {
-        Intent intent = new Intent(Search.this, BarangView.class);
+        Intent intent = new Intent(Search.this, JenisUpdate.class);
         startActivity(intent);
     }
 

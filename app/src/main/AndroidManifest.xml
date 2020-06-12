@@ -23,8 +23,9 @@
         <activity android:name="com.example.exkostadmin.CheckoutActivity" />
         <activity android:name="com.example.exkostadmin.Topup" />
         <activity android:name="com.example.exkostadmin.Tambah" />
-        <activity android:name="com.example.exkostadmin.BarangView" />
-        <activity android:name="com.example.exkostadmin.LelangView" />
+        <activity android:name="com.example.exkostadmin.JenisUpdate" />
+        <activity android:name="com.example.exkostadmin.JenisCreate" />
+        <activity android:name="com.example.exkostadmin.TransferView" />
         <activity android:name="com.example.exkostadmin.LelangSend" />
         <activity android:name="com.example.exkostadmin.KonfirmTrans" />
         <activity android:name="com.example.exkostadmin.LoginActivity"/>

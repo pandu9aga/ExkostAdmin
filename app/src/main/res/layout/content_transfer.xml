@@ -26,22 +26,11 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="30dp"
                 android:gravity="center_vertical"
-                android:text="Berlangsung"
-                android:id="@+id/lelangname">
+                android:layout_marginBottom="3dp"
+                android:text="Kirim"
+                android:id="@+id/statTrans">
 
             </TextView>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:paddingRight="15dp"
-                android:paddingLeft="15dp"
-                android:background="#141452"
-                android:textColor="@color/light"
-                android:textSize="15sp"
-                android:text="Tambah Barang"
-                android:id="@+id/tambahbrg">
-            </Button>
 
         </RelativeLayout>
 
@@ -56,17 +45,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/red"
                 android:textColor="@color/light"
-                android:text="Berlangsung"
-                android:id="@+id/lelangon"
-                android:layout_weight="1">
-            </Button>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/red"
-                android:textColor="@color/light"
                 android:text="Kirim"
-                android:id="@+id/lelangsend"
+                android:id="@+id/transBelum"
                 android:layout_weight="1">
             </Button>
             <Button
@@ -74,8 +54,17 @@
                 android:layout_height="wrap_content"
                 android:background="@color/red"
                 android:textColor="@color/light"
-                android:text="Selesai"
-                android:id="@+id/lelangfin"
+                android:text="Tunggu"
+                android:id="@+id/transKirim"
+                android:layout_weight="1">
+            </Button>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:textColor="@color/light"
+                android:text="Sukses"
+                android:id="@+id/transTerima"
                 android:layout_weight="1">
             </Button>
 

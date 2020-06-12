@@ -45,9 +45,6 @@ public class Buktitrans extends AppCompatActivity {
     SessionManager sessionManager;
 
     ProgressDialog progressDialog;
-    private final int IMG_REQUEST = 1;
-    private String mBitmapName;
-    Bitmap bitmap;
 
     SwipeRefreshLayout swipeBarang;
 
@@ -135,44 +132,45 @@ public class Buktitrans extends AppCompatActivity {
         TextView norek = (TextView) findViewById(R.id.norekAdmin);
         TextView nom = (TextView) findViewById(R.id.nomTopup);
         ImageView gambarbukti = (ImageView) findViewById(R.id.imageUpload);
-        Button select = (Button) findViewById(R.id.selectimage);
-        Button upload = (Button) findViewById(R.id.uploadBukti);
+        Button konfirm = (Button) findViewById(R.id.konfirmBukti);
+        Button gagal = (Button) findViewById(R.id.gagalBukti);
         namatrans.setText(namap);
         namabank.setText(namab);
         norek.setText(rek);
         nom.setText("Rp. "+nominal);
 
-        select.setOnClickListener(new View.OnClickListener() {
+        konfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectImage();
+                String stat = "sukses";
+                changeStat(stat);
             }
         });
-        upload.setOnClickListener(new View.OnClickListener() {
+        gagal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmInputUpload();
+                String stat = "gagal";
+                changeStat(stat);
             }
         });
 
         if (status.equals("belum")){
-
+            konfirm.setVisibility(View.GONE);
+            gagal.setVisibility(View.GONE);
         }else if (status.equals("menunggu")){
-            txtstatus.setText("Tunggu Konfirmasi Admin");
-            select.setVisibility(View.GONE);
-            upload.setVisibility(View.GONE);
+            txtstatus.setText("Butuh Dikonfirmasi");
             Picasso.get().load(Url.ASSET_TOPUP + bukti).into(gambarbukti);
         }else if (status.equals("sukses")){
+            konfirm.setVisibility(View.GONE);
+            gagal.setVisibility(View.GONE);
             txtstatus.setTextColor(Color.parseColor("#3385ff"));
-            txtstatus.setText("Sukses Menambah Saldo");
-            select.setVisibility(View.GONE);
-            upload.setVisibility(View.GONE);
+            txtstatus.setText("Sukses");
             Picasso.get().load(Url.ASSET_TOPUP + bukti).into(gambarbukti);
         }else if (status.equals("gagal")){
+            konfirm.setVisibility(View.GONE);
+            gagal.setVisibility(View.GONE);
             txtstatus.setTextColor(Color.parseColor("#d10024"));
-            txtstatus.setText("Topup digagalkan Admin");
-            select.setVisibility(View.GONE);
-            upload.setVisibility(View.GONE);
+            txtstatus.setText("Gagal");
             Picasso.get().load(Url.ASSET_TOPUP + bukti).into(gambarbukti);
         }
 
@@ -186,42 +184,24 @@ public class Buktitrans extends AppCompatActivity {
 
     }
 
-    //    fungsi untuk memilih gambar dari galery
-    private void selectImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, IMG_REQUEST);
-    }
-
-    //    konversi gambar menjadi string
-    private String imageToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] imageBytes = byteArrayOutputStream.toByteArray();
-
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
-
-    private void uploadBukti() {
+    private void changeStat(final String stat) {
         progressDialog = new ProgressDialog(Buktitrans.this);
         progressDialog.setMessage("Proses");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.UPLOAD_BUKTI, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.KONF_TOPUP, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("stat");
-                    String id = jsonObject.getString("id");
+                    String theid = jsonObject.getString("id");
 
                     progressDialog.dismiss();
                     if(status.equals("sukses")){
-                        Intent intent = new Intent(Buktitrans.this, Buktitrans.class);
-                        intent.putExtra("idtopup",id);
-                        startActivity(intent);
+                        idTopup = theid;
+                        cekTopup();
+                        Toast.makeText(Buktitrans.this, "Sukses Mengkonfirmasi", Toast.LENGTH_LONG).show();
                     }
                     else{
                         Toast.makeText(Buktitrans.this, "Error", Toast.LENGTH_LONG).show();
@@ -241,54 +221,15 @@ public class Buktitrans extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("id", idTopup);
-                params.put("status", "menunggu");
-                params.put("foto", imageToString(bitmap));
+                params.put("status", stat);
                 return params;
             }
         };
         queue.add(stringRequest);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMG_REQUEST && resultCode == Buktitrans.this.RESULT_OK && data != null) {
-//            mengambil alamat file gambar
-            Uri path = data.getData();
-
-            try {
-                InputStream inputStream = Buktitrans.this.getContentResolver().openInputStream(path);
-                mBitmapName = path.getPath();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-
-                ImageView imgup = (ImageView) findViewById(R.id.imageUpload);
-                imgup.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                Toast.makeText(Buktitrans.this, e.toString(), Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-    private boolean validateFoto() {
-        if (bitmap==null) {
-            Toast.makeText(Buktitrans.this, "Gambar harus dipilih", Toast.LENGTH_LONG).show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-    public void confirmInputUpload() {
-        if (validateFoto()) {
-            uploadBukti();
-        }
-    }
-
     public void pindahhome(View v){
-        if (from.equals("checkout")){
-            Intent i = new Intent(Buktitrans.this, HomeActivity.class);
-            startActivity(i);
-        }else {
-            finish();
-        }
+        finish();
     }
 
 

@@ -26,7 +26,7 @@ public class Url {
     public static final String API_PROFIL = BASE+"api_admin/akun";
     public static final String UPDATE_PROFIL = BASE+"api_admin/update_profil";
     public static final String API_SEARCH = BASE+"api_cari/cari";
-    public static final String API_JENIS = BASE+"api_barang/jenis";
+    public static final String API_JENIS = BASE+"api_admin/data_jenis";
     public static final String API_MYTOPUP = BASE+"api_topup/allmyTopup";
     public static final String BANK_ADMIN = BASE+"api_topup/bank_admin";
     public static final String API_CHECK = BASE+"api_topup/checkout";
@@ -36,4 +36,13 @@ public class Url {
     public static final String DEL_TOPUP = BASE+"api_topup/hapus_topup";
     public static final String LUPA_PASS = BASE+"api_resetpass/email_reset_password_validation";
     public static final String RESET_PASS = BASE+"api_resetpass/reset_password_validation";
+    public static final String VIEW_JENIS = BASE+"api_admin/get_jenis";
+    public static final String UPDATE_JENIS = BASE+"api_admin/proses_ujenis";
+    public static final String CREATE_JENIS = BASE+"api_admin/proses_cjenis";
+    public static final String DELETE_JENIS = BASE+"api_admin/proses_djenis";
+    public static final String API_TOPUP = BASE+"api_admin/allTopup";
+    public static final String KONF_TOPUP = BASE+"api_admin/changestatTop";
+    public static final String API_TRANS = BASE+"api_admin/getTransLim";
+    public static final String DETIL_TRANS = BASE+"api_admin/getTransLimId";
+    public static final String UP_TRANS = BASE+"api_admin/upBuktiTrans";
 }

@@ -32,7 +32,7 @@
             android:gravity="bottom|top"
             android:textColor="@color/light"
             android:paddingLeft="15dp"
-            android:text="Detail Topup"
+            android:text="Detail Transfer"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="Nama Pengirim"
+                        android:text="Nama Pelelang"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -71,9 +71,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="Nama Pengirim"
+                        android:text="Nama Pelelang"
                         android:textSize="20sp"
-                        android:id="@+id/namaPengirim"/>
+                        android:id="@+id/namaPelelang"/>
 
                 </LinearLayout>
 
@@ -81,13 +81,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="Pilihan Rekening"
+                        android:text="Alamat Pelelang"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -95,14 +95,78 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:id="@+id/bankAdmin"
-                        android:text="BANK"
-                        android:textSize="20sp" />
+                        android:text="Alamat Pelelang"
+                        android:textSize="20sp"
+                        android:id="@+id/alamatPelelang"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/norekAdmin"
+                        android:layout_marginLeft="15dp"
+                        android:text="No Telepon Pelelang"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="No Telepon Pelelang"
+                        android:textSize="20sp"
+                        android:id="@+id/notelpPelelang"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Barang Lelang"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Barang Lelang"
+                        android:textSize="20sp"
+                        android:id="@+id/barangLelang"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="Nomor Rekening"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/norek"
                         android:layout_marginLeft="15dp"
                         android:text="0000 0000 0000"
                         android:textSize="18sp" />
@@ -119,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:text="Jumlah Topup"
+                        android:text="Jumlah Transfer"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -129,7 +193,7 @@
                         android:layout_marginLeft="15dp"
                         android:text="Rp. 000"
                         android:textSize="20sp"
-                        android:id="@+id/nomTopup"
+                        android:id="@+id/nomTrans"
                         android:textColor="@color/red"/>
                 </LinearLayout>
 
@@ -171,21 +235,21 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center">
                     <Button
-                        android:id="@+id/konfirmBukti"
+                        android:id="@+id/upBukti"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@color/red"
-                        android:text="Konfirmasi Bukti"
+                        android:text="Upload Bukti"
                         android:paddingRight="25dp"
                         android:paddingLeft="25dp"
                         android:layout_marginRight="5dp"
                         android:textColor="@color/light" />
                     <Button
-                        android:id="@+id/gagalBukti"
+                        android:id="@+id/pilihBukti"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="@color/red2"
-                        android:text="Tolak Bukti"
+                        android:text="Pilih Gambar"
                         android:paddingRight="25dp"
                         android:paddingLeft="25dp"
                         android:textColor="@color/light" />

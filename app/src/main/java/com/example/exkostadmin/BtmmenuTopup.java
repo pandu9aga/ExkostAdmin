@@ -51,10 +51,8 @@ public class BtmmenuTopup extends Fragment {
 
     SessionManager sessionManager;
     private RequestQueue queue;
-    TextView saldoakun;
     LinearLayout frameLayout;
     private SwipeRefreshLayout swipeTop;
-    Button btnTopup;
     Spinner sptop;
 
     List<ModelTopup> mItems;
@@ -84,30 +82,16 @@ public class BtmmenuTopup extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.content_saldo, container, false);
 
-
-
-        saldoakun = rootView.findViewById(R.id.nomSaldo);
         frameLayout = rootView.findViewById(R.id.saldoLayout);
-        btnTopup = rootView.findViewById(R.id.btnTopup);
-        btnTopup.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Topup.class);
-                startActivity(intent);
-            }
-        });
 
         sessionManager = new SessionManager(getActivity());
         queue = Volley.newRequestQueue(getActivity());
-        dataAkun();
 
         swipeTop = rootView.findViewById(R.id.swipeSaldo);
         swipeTop.setColorSchemeResources(R.color.red, R.color.red2);
         swipeTop.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                dataAkun();
                 reload();
                 if(swipeTop.isRefreshing()) {
                     swipeTop.setRefreshing(false);
@@ -157,7 +141,7 @@ public class BtmmenuTopup extends Fragment {
         pd.setCancelable(false);
         //pd.show();
 
-        StringRequest reqData = new StringRequest(Request.Method.POST, Url.API_MYTOPUP,
+        StringRequest reqData = new StringRequest(Request.Method.POST, Url.API_TOPUP,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -213,42 +197,6 @@ public class BtmmenuTopup extends Fragment {
         };
 
         queue.add(reqData);
-    }
-
-    private void dataAkun() {
-        SessionManager sessionManager = new SessionManager(getActivity());
-        final String id_akun = sessionManager.getIdAkun();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.API_AKUN, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONObject data = jsonObject.getJSONObject("data");
-
-                    String saldo = data.getString("saldo_akun");
-                    saldoakun.setText("Rp."+saldo);
-
-                } catch (Exception e) {
-                    Snackbar.make(frameLayout, e.toString(), Snackbar.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Snackbar.make(frameLayout, error.toString(), Snackbar.LENGTH_LONG).show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", id_akun);
-                return params;
-            }
-        };
-
-        queue.add(stringRequest);
     }
 
 }

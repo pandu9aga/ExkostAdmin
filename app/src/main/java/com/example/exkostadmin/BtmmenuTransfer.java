@@ -1,6 +1,5 @@
 package com.example.exkostadmin;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -20,7 +19,7 @@ import android.widget.TextView;
  */
 public class BtmmenuTransfer extends Fragment {
     View view;
-    Button lelangBerlangsung, lelangKirim, lelangSelesai,tmbBarang;
+    Button transBelum, transKirim, transTerima, transGagal;
 
     public BtmmenuTransfer() {
         // Required empty public constructor
@@ -31,58 +30,49 @@ public class BtmmenuTransfer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.content_lelang, container, false);
+        view = inflater.inflate(R.layout.content_transfer, container, false);
 
-        lelangBerlangsung = (Button) view.findViewById(R.id.lelangon);
-        lelangKirim = (Button) view.findViewById(R.id.lelangsend);
-        lelangSelesai = (Button) view.findViewById(R.id.lelangfin);
-        tmbBarang = (Button) view.findViewById(R.id.tambahbrg);
+        transBelum = (Button) view.findViewById(R.id.transBelum);
+        transKirim = (Button) view.findViewById(R.id.transKirim);
+        transTerima = (Button) view.findViewById(R.id.transTerima);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.framelelang, new LelangBerlangsung());
+        fragmentTransaction.replace(R.id.framelelang, new TransBelum());
         fragmentTransaction.commit();
 
 
-        lelangBerlangsung.setOnClickListener(new View.OnClickListener() {
+        transBelum.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                loadFragment(new LelangBerlangsung());
+                loadFragment(new TransBelum());
 
-                TextView textView = (TextView) view.findViewById(R.id.lelangname);
-                textView.setText("Berlangsung");
-
-            }
-        });
-        lelangKirim.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                loadFragment(new LelangKirim());
-
-                TextView textView = (TextView) view.findViewById(R.id.lelangname);
+                TextView textView = (TextView) view.findViewById(R.id.statTrans);
                 textView.setText("Kirim");
 
             }
         });
-        lelangSelesai.setOnClickListener(new View.OnClickListener() {
+        transKirim.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                loadFragment(new LelangSelesai());
+                loadFragment(new TransKirim());
 
-                TextView textView = (TextView) view.findViewById(R.id.lelangname);
-                textView.setText("Selesai");
+                TextView textView = (TextView) view.findViewById(R.id.statTrans);
+                textView.setText("Tunggu");
 
             }
         });
-        tmbBarang.setOnClickListener(new View.OnClickListener() {
+        transTerima.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-// display a message by using a Toast
-                Intent intent = new Intent(getActivity(), Tambah.class);
-                startActivity(intent);
+                loadFragment(new TransTerima());
+
+                TextView textView = (TextView) view.findViewById(R.id.statTrans);
+                textView.setText("Sukses");
+
             }
         });
 

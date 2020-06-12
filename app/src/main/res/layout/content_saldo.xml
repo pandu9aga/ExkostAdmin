@@ -23,41 +23,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Total Saldo"
+                android:text="Topup User"
+                android:layout_marginBottom="5dp"
                 android:textSize="24sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Rp 000"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                android:id="@+id/nomSaldo"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnTopup"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/buttonshape"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="Topup"
-            android:textColor="#ffff"
-            android:textSize="15sp" />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Riwayat Topup :"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
     <Spinner
         android:layout_width="match_parent"

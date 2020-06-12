@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.exkostadmin.Api.Url;
-import com.example.exkostadmin.BarangView;
+import com.example.exkostadmin.JenisUpdate;
 import com.example.exkostadmin.Model.ModelHome;
 import com.example.exkostadmin.R;
 import com.squareup.picasso.Picasso;
@@ -79,7 +79,7 @@ public class AdapterHome extends RecyclerView.Adapter<AdapterHome.HolderData> {
             toBarang.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent update = new Intent(context, BarangView.class);
+                    Intent update = new Intent(context, JenisUpdate.class);
                     update.putExtra("id_barang",md.getIdBarang());
 
                     context.startActivity(update);

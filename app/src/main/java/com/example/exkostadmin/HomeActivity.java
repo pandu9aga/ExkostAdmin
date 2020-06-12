@@ -4,17 +4,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.SearchView;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -78,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         drawer = findViewById(R.id.drawer_layout);
         View headerView = navigationView.getHeaderView(0);
-        TextView namaakun = (TextView) headerView.findViewById(R.id.namaAkun);
+        //TextView namaakun = (TextView) headerView.findViewById(R.id.namaAkun);
 
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -154,7 +150,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //pindah activity end
 
         public void goTo(View v) {
-            Intent intent = new Intent(HomeActivity.this, BarangView.class);
+            Intent intent = new Intent(HomeActivity.this, JenisUpdate.class);
             startActivity(intent);
         }
 
@@ -181,7 +177,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                     String nama = data.getString("nama_admin");
 
-                    namaakun.setText(nama);
+                    //namaakun.setText(nama);
                     //saldoakun.setText("Saldo: Rp."+saldo);
 
                 } catch (Exception e) {

@@ -1,11 +1,11 @@
 package com.example.exkostadmin;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
+//import android.app.Fragment;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -13,8 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,35 +22,36 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.exkostadmin.Api.Url;
-import com.example.exkostadmin.Model.ModelJenis;
-import com.example.exkostadmin.adapter.AdapterJenis;
+import com.example.exkostadmin.Model.ModelTransfer;
+import com.example.exkostadmin.adapter.AdapterTransfer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BtmmenuJenis extends Fragment {
+public class TransBelum extends Fragment {
 
     View view;
-    private SwipeRefreshLayout swipeCart;
+    private SwipeRefreshLayout swipeLb;
     SessionManager sessionManager;
     private RequestQueue queue;
-    Button addJenis;
 
-    List<ModelJenis> mItems;
+    List<ModelTransfer> mItems;
     RecyclerView mRecyclerview;
     RecyclerView.LayoutManager mManager;
     RecyclerView.Adapter mAdapter;
     ProgressDialog pd;
 
-    public BtmmenuJenis() {
+    public TransBelum() {
         // Required empty public constructor
     }
 
@@ -59,31 +60,19 @@ public class BtmmenuJenis extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.content_jenis, container, false);
+        view = inflater.inflate(R.layout.transfer_layout, container, false);
 
         queue = Volley.newRequestQueue(getActivity());
 
-        swipeCart = view.findViewById(R.id.swipeCart);
-
-        swipeCart.setColorSchemeResources(R.color.red, R.color.red2);
-
-        swipeCart.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeLb = view.findViewById(R.id.swipeL);
+        swipeLb.setColorSchemeResources(R.color.red, R.color.red2);
+        swipeLb.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 reload();
-                if(swipeCart.isRefreshing()) {
-                    swipeCart.setRefreshing(false);
+                if(swipeLb.isRefreshing()) {
+                    swipeLb.setRefreshing(false);
                 }
-            }
-        });
-
-        addJenis = view.findViewById(R.id.addJenis);
-        addJenis.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent add = new Intent(getActivity(), JenisCreate.class);
-                getActivity().startActivity(add);
             }
         });
 
@@ -93,31 +82,30 @@ public class BtmmenuJenis extends Fragment {
     }
 
     public void reload(){
-        mRecyclerview = (RecyclerView) view.findViewById(R.id.recCart);
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.recL);
         pd = new ProgressDialog(getActivity());
         mItems = new ArrayList<>();
 
-        loadCart();
+        loadTb();
 
-        mManager = new LinearLayoutManager(getActivity());
+        mManager = new GridLayoutManager(getActivity(),2);
         mRecyclerview.setLayoutManager(mManager);
-        mAdapter = new AdapterJenis(getActivity(),mItems);
+        mAdapter = new AdapterTransfer(getActivity(),mItems);
         mRecyclerview.setAdapter(mAdapter);
     }
 
-    private void loadCart() {
+    private void loadTb() {
         SessionManager sessionManager = new SessionManager(getActivity());
-        final String id_akun = sessionManager.getIdAkun();
-
+        mItems.clear();
         pd.setMessage("Mengambil Data");
-        pd.setCancelable(true);
-        pd.show();
+        pd.setCancelable(false);
+        //pd.show();
 
-        StringRequest reqData = new StringRequest(Request.Method.GET, Url.API_JENIS,
+        StringRequest reqData = new StringRequest(Request.Method.POST, Url.API_TRANS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        pd.cancel();
+                        //pd.cancel();
                         Log.d("volley","response : " + response.toString());
                         try {
                             JSONArray j = new JSONArray(response);
@@ -125,9 +113,14 @@ public class BtmmenuJenis extends Fragment {
                             {
                                 try {
                                     JSONObject data = j.getJSONObject(i);
-                                    ModelJenis md = new ModelJenis();
-                                    md.setIdJenis(data.getString("id_jenis_barang"));
-                                    md.setNamaJenis(data.getString("nama_jenis_barang"));
+                                    ModelTransfer md = new ModelTransfer();
+                                    md.setIdPemenang(data.getString("id_pemenang"));
+                                    md.setNamaBarang(data.getString("nama_barang"));
+                                    md.setNamaAkun(data.getString("nama_akun"));
+                                    md.setNominal(data.getString("jumlah_tawaran"));
+                                    md.setRekening(data.getString("rekening_akun"));
+                                    md.setGambarBukti(data.getString("bukti_transfer"));
+                                    md.setStatTrans(data.getString("status_transfer"));
                                     mItems.add(md);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -142,12 +135,22 @@ public class BtmmenuJenis extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        pd.cancel();
+                        //pd.cancel();
                         Log.d("volley", "error : " + error.getMessage());
                     }
-                });
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("key", "");
+                return params;
+            }
+        };
 
         queue.add(reqData);
     }
+
+
 
 }

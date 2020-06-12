@@ -266,7 +266,7 @@ public class Tambah extends AppCompatActivity{
 
                     progressDialog.dismiss();
                     if(status.equals("true")){
-                        Intent intent = new Intent(Tambah.this, LelangView.class);
+                        Intent intent = new Intent(Tambah.this, TransferView.class);
                         intent.putExtra("id_barang",id);
                         startActivity(intent);
                     }

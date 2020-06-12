@@ -55,34 +55,25 @@ public class AdapterTopup extends RecyclerView.Adapter<AdapterTopup.HolderData> 
     @Override
     public void onBindViewHolder(HolderData holder, int position) {
         final ModelTopup md  = mItems.get(position);
-        holder.nominal.setText(md.getNominal());
-        Picasso.get().load(Url.ASSET_TOPUP+md.getBukti()).into(holder.gambarBukti);
-
-        holder.delTopup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                delProcess(md.getId());
-                //AppCompatActivity activity = (AppCompatActivity) view.getContext();
-                //Fragment myFragment = new BtmmenuTopup();
-                //activity.getSupportFragmentManager().beginTransaction().replace(R.id.pager, myFragment).addToBackStack(null).commit();
-            }
-        });
+        holder.nominal.setText("Rp. "+md.getNominal());
+        //Picasso.get().load(Url.ASSET_TOPUP+md.getBukti()).into(holder.gambarBukti);
 
         String stattop = md.getStatus();
         if (stattop.equals("belum")){
             holder.status.setText("Belum Upload Bukti");
-            holder.toDetail.setText("Upload");
+            holder.toDetail.setText("Belum Upload");
         }else if(stattop.equals("menunggu")){
-            holder.delTopup.setVisibility(View.GONE);
+            Picasso.get().load(Url.ASSET_TOPUP+md.getBukti()).into(holder.gambarBukti);
             holder.status.setText("Tunggu Konfirmasi");
-            holder.toDetail.setText("Upload");
+            holder.toDetail.setText("Konfirmasi");
         }else if(stattop.equals("sukses")){
-            holder.delTopup.setVisibility(View.GONE);
+            Picasso.get().load(Url.ASSET_TOPUP+md.getBukti()).into(holder.gambarBukti);
             holder.status.setText("Sukses");
-            holder.toDetail.setText("Lihat");
+            holder.toDetail.setText("Sukses");
         }else if(stattop.equals("gagal")){
+            Picasso.get().load(Url.ASSET_TOPUP+md.getBukti()).into(holder.gambarBukti);
             holder.status.setText("Gagal");
-            holder.toDetail.setText("Upload");
+            holder.toDetail.setText("Gagal");
         }
 
         holder.md = md;
@@ -94,49 +85,12 @@ public class AdapterTopup extends RecyclerView.Adapter<AdapterTopup.HolderData> 
         return mItems.size();
     }
 
-    private void delProcess(final String id) {
-        sessionManager = new SessionManager(context);
-        queue = Volley.newRequestQueue(context);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.DEL_TOPUP, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String stat = jsonObject.getString("stat");
-
-                    if (stat.equals("sukses")) {
-                        Toast.makeText(context, "Topup Berhasil Dihapus", Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (Exception e) {
-                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(),Toast.LENGTH_LONG).show();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("id", id);
-                return params;
-            }
-        };
-
-        queue.add(stringRequest);
-    }
-
 
     class HolderData extends RecyclerView.ViewHolder
     {
         TextView nominal,status;
         ImageView gambarBukti;
-        Button toDetail,delTopup;
+        Button toDetail;
         ModelTopup md;
 
         public  HolderData (View view)
@@ -148,8 +102,6 @@ public class AdapterTopup extends RecyclerView.Adapter<AdapterTopup.HolderData> 
             gambarBukti = (ImageView) view.findViewById(R.id.gambarBukti);
 
             toDetail = (Button) view.findViewById(R.id.goDetail);
-            delTopup = (Button) view.findViewById(R.id.delTop);
-
             toDetail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
