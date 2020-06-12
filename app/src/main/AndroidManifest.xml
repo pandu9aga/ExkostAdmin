@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.exkostadmin">
+
+    <dist:module dist:instant="true" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name="com.example.exkostadmin.Buktitrans"></activity>
+        <activity android:name="com.example.exkostadmin.Rekening" />
+        <activity android:name="com.example.exkostadmin.CheckoutActivity" />
+        <activity android:name="com.example.exkostadmin.Topup" />
+        <activity android:name="com.example.exkostadmin.Tambah" />
+        <activity android:name="com.example.exkostadmin.BarangView" />
+        <activity android:name="com.example.exkostadmin.LelangView" />
+        <activity android:name="com.example.exkostadmin.LelangSend" />
+        <activity android:name="com.example.exkostadmin.KonfirmTrans" />
+        <activity android:name="com.example.exkostadmin.LoginActivity"/>
+        <activity
+            android:name="com.example.exkostadmin.OpenActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.exkostadmin.HomeActivity"/>
+        <activity android:name="com.example.exkostadmin.Search"/>
     </application>
 
 </manifest>
