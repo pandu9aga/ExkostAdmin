@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light"
     android:orientation="vertical"
-    tools:context=".Buktitrans"
+    tools:context=".TransferView"
     android:id="@+id/detailToplayout">
 
     <LinearLayout

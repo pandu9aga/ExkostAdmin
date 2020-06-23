@@ -2,6 +2,7 @@ package com.example.exkostadmin.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,14 @@ public class AdapterTopup extends RecyclerView.Adapter<AdapterTopup.HolderData> 
             holder.status.setText("Gagal");
             holder.toDetail.setText("Gagal");
         }
+
+        //get Screen Dimensions
+        DisplayMetrics metrics = holder.gambarBukti.getResources().getDisplayMetrics();
+        int width = metrics.widthPixels;
+        //NOTE: If you want to square, just use one of these value.
+        //set as half of dimens
+        holder.gambarBukti.getLayoutParams().width = width/3;
+        holder.gambarBukti.getLayoutParams().height = width/5;
 
         holder.md = md;
 
